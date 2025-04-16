@@ -11,9 +11,11 @@ NC := \033[0m # No Color
 # Help
 help:
 	@echo "${BLUE}Available commands:${NC}"
-	@echo "  ${GREEN}make setup${NC}      - Set up virtual environment and install all dependencies"
-	@echo "  ${GREEN}make venv${NC}       - Create only the virtual environment without installing dependencies"
-	@echo "  ${GREEN}make run${NC}        - Run program"
+	@echo "  ${GREEN}make setup${NC}           - Set up virtual environment and install all dependencies"
+	@echo "  ${GREEN}make venv${NC}            - Create only the virtual environment without installing dependencies"
+	@echo "  ${GREEN}make run${NC}             - Run program"
+	@echo "  ${GREEN}make test${NC}            - Run all tests"
+	@echo "  ${GREEN}make test-verbose${NC}    - Run all tests in verbose mode"
 
 # Complete setup: virtual environment + dependencies
 setup: venv
@@ -35,10 +37,16 @@ venv:
 		echo "${YELLOW}Virtual environment already exists${NC}"; \
 	fi
 
-run:
+run: test
 	@echo "${BLUE}Starting program...${NC}"
 	@if [ ! -d "$(VENV_DIR)" ]; then \
 		echo "${YELLOW}Virtual environment not found. Run 'make setup' first${NC}"; \
 		exit 1; \
 	fi
 	$(VENV_DIR)/bin/python src/main.py
+
+test:
+	$(VENV_DIR)/bin/python -m unittest discover -s tests
+
+test-verbose:
+	$(VENV_DIR)/bin/python -m unittest discover -s tests -v
