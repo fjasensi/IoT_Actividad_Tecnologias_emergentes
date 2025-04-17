@@ -1,4 +1,5 @@
 import os
+import json
 from dotenv import load_dotenv
 from thing_speak_manager import ThingSpeakManager
 
@@ -40,6 +41,15 @@ def main():
             results = int(results) if results.isdigit() else 10
 
             ts_manager.display_data_table(results)
+
+            input("\nPresiona Enter para continuar...")
+        elif option == "2":
+            # Get status of the channel
+            status = ts_manager.read_channel_status()
+
+            if status:
+                print("\nEstado del canal:")
+                print(json.dumps(status, indent=2))
 
             input("\nPresiona Enter para continuar...")
         else:
