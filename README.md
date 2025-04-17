@@ -54,7 +54,8 @@ La aplicación mostrará un menú con las siguientes opciones:
 
 1. Ver últimas lecturas
 2. Ver estado del canal
-3. Añadir nueva lectura manualmente
+3. Ver datos de un campo
+4. Añadir nueva lectura manualmente
 0. Salir
 
 ## Licencia

@@ -54,7 +54,21 @@ def main():
 
             input("\nPresiona Enter para continuar...")
         elif option == "3":
-            pass
+            # Read a specific field from the channel
+            print("\nSelecciona el campo para ver sus datos:")
+
+            for i, field_name in enumerate(ts_manager.field_names.values(), 1):
+                print(f"{i}. {field_name}")
+
+            field_option = input("\nSelecciona una opción (1-5): ")
+            if field_option.isdigit() and 1 <= int(field_option) <= 5:
+                results = input("Número de lecturas a mostrar (Enter para 10): ")
+                results = int(results) if results.isdigit() else 10
+
+                # Read and display data for the selected field
+                ts_manager.display_field_data(int(field_option), results)
+
+            input("\nPresiona Enter para continuar...")
         elif option == "4":
             # Add a new record
             print("\nIntroduce los valores para la nueva lectura:")
