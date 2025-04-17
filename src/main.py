@@ -26,7 +26,8 @@ def main():
         print("\nOpciones:")
         print("1. Ver últimas lecturas")
         print("2. Ver estado del canal")
-        print("3. Añadir nueva lectura manualmente")
+        print("3. Ver datos de un campo")
+        print("4. Añadir nueva lectura manualmente")
         print("0. Salir")
 
         option = input("\nSelecciona una opción: ")
@@ -50,6 +51,40 @@ def main():
             if status:
                 print("\nEstado del canal:")
                 print(json.dumps(status, indent=2))
+
+            input("\nPresiona Enter para continuar...")
+        elif option == "3":
+            pass
+        elif option == "4":
+            # Add a new record
+            print("\nIntroduce los valores para la nueva lectura:")
+            new_data = {}
+
+            for field_key, field_name in ts_manager.field_names.items():
+                while True:
+                    value = input(f"{field_name}: ")
+                    try:
+                        new_data[field_key] = float(value)
+                        break
+                    except ValueError:
+                        print("Error: Introduce un valor numérico válido.")
+
+            # Confirmation before send
+            print("\nDatos a enviar:")
+
+            for field_key, value in new_data.items():
+                print(f"{ts_manager.field_names[field_key]}: {value}")
+
+            confirm = input("\n¿Confirmar envío? (s/n): ")
+
+            if confirm.lower() == 's':
+                status_code = ts_manager.write_channel_data(new_data)
+                if status_code == 200:
+                    print("Datos enviados correctamente.")
+                else:
+                    print(f"Error al enviar datos. Código de estado: {status_code}")
+            else:
+                print("Envío cancelado.")
 
             input("\nPresiona Enter para continuar...")
         else:
