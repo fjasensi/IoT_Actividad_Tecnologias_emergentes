@@ -55,7 +55,7 @@ La aplicación mostrará un menú con las siguientes opciones:
 1. Ver últimas lecturas
 2. Ver estado del canal
 3. Añadir nueva lectura manualmente
-7. Salir
+0. Salir
 
 ## Licencia
 
